@@ -34,7 +34,7 @@ def run_grayscale(local=False):
 
     img = Image.open(filename).convert('L')
 
-    result_filename = 'output/grayscale.png' if local else '/data/outputs/result'
+    result_filename = 'output/grayscale.png' if local else '/data/outputs/result/grayscale.png'
     img.save(result_filename)
 
 
