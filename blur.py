@@ -33,9 +33,9 @@ def run_blur(local=False):
         return
 
     img = Image.open(filename)
-    img = img.filter(ImageFilter.BLUR)
+    img = img.filter(ImageFilter.GaussianBlur(radius=5))
 
-    result_filename = 'output/grayscale.png' if local else '/data/outputs/result'
+    result_filename = 'output/blur.png' if local else '/data/outputs/result'
     img.save(result_filename)
 
 
