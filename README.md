@@ -26,7 +26,7 @@ Run any of the algorithms locally e.g. for grayscale:
 python grayscale.py local
 ```
 
-The result will be saved in grayscale.png, which is gitignored.
+The result will be saved in output/grayscale.png. The output folder is gitignored.
 
 
 ### Running for OCEAN compute-to-data

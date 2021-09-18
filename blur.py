@@ -2,7 +2,7 @@ import json
 import os
 import sys
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
 def get_input(local=False):
@@ -26,13 +26,14 @@ def get_input(local=False):
         return filename
 
 
-def run_grayscale(local=False):
+def run_blur(local=False):
     filename = get_input(local)
     if not filename:
         print("Could not retrieve filename.")
         return
 
-    img = Image.open(filename).convert('L')
+    img = Image.open(filename)
+    img = img.filter(ImageFilter.BLUR)
 
     result_filename = 'output/grayscale.png' if local else '/data/outputs/result'
     img.save(result_filename)
@@ -40,4 +41,4 @@ def run_grayscale(local=False):
 
 if __name__ == "__main__":
     local = (len(sys.argv) == 2 and sys.argv[1] == "local")
-    run_grayscale(local)
+    run_blur(local)
