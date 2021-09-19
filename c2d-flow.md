@@ -367,6 +367,6 @@ result['logs']  # will output something like https://compute-publish.s3.amazonaw
 
 Going to your result link you will see the algorithm logs, e.g. in this simple case it will just log the algorithm steps.
 
-Go to the URL of `result["urls"][0]` and save the output as a .png file to get the result of grayscale image processing.
+Go to the URL of `result["urls"][0]` to get the result of grayscale image processing.
 
 We are working on a function to also retrieve the binary result file, so expect updates to this README pretty soon :)
