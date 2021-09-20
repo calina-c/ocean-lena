@@ -16,7 +16,7 @@ def get_job_details():
     if job['dids'] is not None:
         for did in job['dids']:
             # get the ddo from disk
-            filename = '/data/ddos/' + did
+            filename = 'data/ddos/' + did
             print(f'Reading json from {filename}')
             with open(filename) as json_file:
                 print(json_file.read())
