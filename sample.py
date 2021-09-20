@@ -19,7 +19,7 @@ def get_job_details():
             filename = '/data/ddos/' + did
             print(f'Reading json from {filename}')
             with open(filename) as json_file:
-                print(json_file)
+                print(json_file.read())
                 ddo = json.load(json_file)
                 # search for metadata service
                 print(ddo)
