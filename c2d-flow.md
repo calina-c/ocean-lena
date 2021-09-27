@@ -362,3 +362,18 @@ result = ocean.compute.result_file(DATA_did, job_id, 0, bob_wallet)
 
 ```
 
+You can do whatever you want with the result. For example you can show it:
+```python
+from PIL import Image
+import io
+
+image = Image.open(io.BytesIO(result))
+image.show()
+```
+
+Or simply save the result into a file:
+```python
+f = open('test-lena.png', 'wb')
+f.write(result)
+f.close()
+```
