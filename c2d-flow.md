@@ -34,14 +34,17 @@ Ocean `barge` runs ganache (local blockchain), Provider (data service), and Aqua
 In a new console:
 
 ```console
-#grab repo
+# grab repo
 git clone https://github.com/oceanprotocol/barge
 cd barge
 
-#clean up old containers (to be sure)
+# clean up old containers (to be sure)
 docker system prune -a --volumes
 
-#run barge: start ganache, Provider, Aquarius; deploy contracts; update ~/.ocean
+# make sure to use the dev version of the operator service URL, to match the barge provider
+export OPERATOR_SERVICE_URL=https://c2d-dev.operator.oceanprotocol.com/
+
+# run barge: start ganache, Provider, Aquarius; deploy contracts; update ~/.ocean
 ./start_ocean.sh  --with-provider2
 ```
 
@@ -115,7 +118,7 @@ print(f"config.provider_url = '{config.provider_url}'")
 # Create Alice's wallet
 import os
 from ocean_lib.web3_internal.wallet import Wallet
-alice_wallet = Wallet(ocean.web3, private_key=os.getenv('TEST_PRIVATE_KEY1'))
+alice_wallet = Wallet(ocean.web3, os.getenv('TEST_PRIVATE_KEY1'), config.block_confirmations)
 print(f"alice_wallet.address = '{alice_wallet.address}'")
 
 # Mint OCEAN for ganache only
@@ -266,7 +269,7 @@ ocean.assets.update(DATA_ddo, publisher_wallet=alice_wallet)
 
 In the same Python console:
 ```python
-bob_wallet = Wallet(ocean.web3, private_key=os.getenv('TEST_PRIVATE_KEY2'))
+bob_wallet = Wallet(ocean.web3, os.getenv('TEST_PRIVATE_KEY2'), config.block_confirmations)
 print(f"bob_wallet.address = '{bob_wallet.address}'")
 
 # Verify that Bob has ganache ETH
@@ -355,18 +358,7 @@ Here is a list of possible results: [Operator Service Status description](https:
 Once you get `{'ok': True, 'status': 70, 'statusText': 'Job finished'}`, Bob can check the result of the job.
 
 ```python
-result = ocean.compute.result(DATA_did, job_id, bob_wallet)
+result = ocean.compute.result_file(DATA_did, job_id, 0, bob_wallet)
 
 ```
 
-It will output a dictionary containing details and logs, e.g:
-
-```python
-result['logs']  # will output something like https://compute-publish.s3.amazonaws.com/79..8/data/logs/algorithm.log
-```
-
-Going to your result link you will see the algorithm logs, e.g. in this simple case it will just log the algorithm steps.
-
-Go to the URL of `result["urls"][0]` to get the result of grayscale image processing.
-
-We are working on a function to also retrieve the binary result file, so expect updates to this README pretty soon :)
